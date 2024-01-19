@@ -18,7 +18,7 @@ struct AffinePoint {
     };
 };
 
-const AffinePoint Identity = {Zero, One};
+const AffinePoint AffinePointIdentity = {Zero, One};
 
 static AffinePoint Neg(const AffinePoint& p)
 {
@@ -97,7 +97,7 @@ static bool IsOnCurve(const AffinePoint& p)
 
 static AffinePoint ScalarMultiplication(const AffinePoint& point, const FrE& scalarMont)
 {
-    AffinePoint result = Identity;
+    AffinePoint result = AffinePointIdentity;
     FrE scalar = FromMontgomery(scalarMont);
     AffinePoint pointToUse = point;
 
@@ -118,7 +118,7 @@ static FpE GetYCoordinate(const FpE& x, bool returnPositiveY)
     FpE y = num / den;
 
     FpE z = {};
-    if (!Sqrt(y, &z)) return {};
+    if (!Sqrt(y, &z)) throw;
 
     bool isLargest = LexicographicallyLargest(z);
 

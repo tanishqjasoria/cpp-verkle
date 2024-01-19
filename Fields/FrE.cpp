@@ -126,11 +126,17 @@ const ulong G2 = 11911047149493888393UL;
 const ulong G3 = 436996551065533341UL;
 const FrE gResidue = {G0, G1, G2, G3};
 
-const ulong BS0 = 13438322763177358320UL;
-const ulong BS1 = 9207542918679396920UL;
-const ulong BS2 = 461402362329971456UL;
-const ulong BS3 = 1044189607433056169UL;
+const ulong BS0 = 14255005641631456159UL;
+const ulong BS1 = 287735716208731153UL;
+const ulong BS2 = 5202565594553623000UL;
+const ulong BS3 = 32630925232283005UL;
 const FrE _bSqrtExponentElement = {BS0, BS1, BS2, BS3};
+
+const ulong BL0 = 13438322763177358320UL;
+const ulong BL1 = 9207542918679396920UL;
+const ulong BL2 = 461402362329971456UL;
+const ulong BL3 = 1044189607433056169UL;
+const FrE _bLegendreExponentElement = {BL0, BL1, BL2, BL3};
 
 const ulong SqrtR = 5;
 
@@ -443,7 +449,7 @@ FrE MultiplyMod(const FrE& x, const FrE& y)
 }
 
 
-FrE Inverse(const FrE& x)
+static FrE Inverse(const FrE& x)
 {
     // initialize u = q
     FrE u = qElement;
@@ -508,6 +514,15 @@ static FrE Exp(const FrE& b, const FrE& e)
     }
 }
 
+static int Legendre(const FrE& z)
+{
+    FrE res = Exp(z, _bLegendreExponentElement);
+
+    if (res.IsZero()) return 0;
+    if (Equals(res, One)) return 1;
+
+    return -1;
+}
 
 static bool Sqrt(const FrE& x, FrE* z)
 {

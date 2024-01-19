@@ -120,12 +120,18 @@ const ulong G2 = 967625415375836421UL;
 const ulong G3 = 4543825880697944938UL;
 const FpE gResidue = {G0, G1, G2, G3};
 
-
 const ulong BS0 = 9223141137265459199UL;
 const ulong BS1 = 347036667491570177UL;
 const ulong BS2 = 10722717374829358084UL;
 const ulong BS3 = 972477353UL;
 const FpE _bSqrtExponentElement = {BS0, BS1, BS2, BS3};
+
+const ulong BL0 = 9223372034707292160UL;
+const ulong BL1 = 12240451741123816959UL;
+const ulong BL2 = 1845609449319885826UL;
+const ulong BL3 = 4176758429732224676UL;
+const FpE _bLegendreExponentElement = {BL0, BL1, BL2, BL3};
+
 
 const ulong SqrtR = 32;
 
@@ -437,6 +443,8 @@ static FpE MultiplyMod(const FpE& x, const FpE& y)
     return res;
 }
 
+
+
 static FpE Inverse(const FpE& x)
 {
     // initialize u = q
@@ -502,6 +510,15 @@ static FpE Exp(const FpE& b, const FpE& e)
     }
 }
 
+static int Legendre(const FpE& z)
+{
+    FpE res = Exp(z, _bLegendreExponentElement);
+
+    if (res.IsZero()) return 0;
+    if (Equals(res, One)) return 1;
+
+    return -1;
+}
 
 static bool Sqrt(const FpE& x, FpE* z)
 {

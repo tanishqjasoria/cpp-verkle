@@ -14,7 +14,7 @@ extern "C" {
     static FpE AddMod(const FpE& a, const FpE& b);
     static FpE SubMod(const FpE& a, const FpE& b);
     static FpE MultiplyMod(const FpE& x, const FpE& y) ;
-    static FpE Inverse(FpE x);
+    static FpE Inverse(const FpE& x);
 }
 
 

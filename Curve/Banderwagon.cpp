@@ -2,12 +2,10 @@
 // Created by eurus on 1/19/24.
 //
 
-#include "ExtendedPoint.h"
-#include "../Fields/FpE.cpp"
-#include "../Fields/FrE.cpp"
+#include "Banderwagon.h"
 #include "AffinePoint.cpp"
 
-struct ExtendedPoint {
+struct Banderwagon {
     union {
         struct{
             FpE X;
@@ -36,15 +34,36 @@ struct ExtendedPoint {
     }
 };
 
+static int SubgroupCheck(const FpE& x)
+{
+    FpE res = x * x;
+    res = res * A;
+    res = Negative(res);
+    res = res + One;
 
-static ExtendedPoint FromAffine(const AffinePoint& point)
+    return Legendre(res);
+}
+
+static Banderwagon FromBytes(uint8_t* bytes, bool isBigEndian = true, bool subgroupCheck = true)
+{
+    FpE x = New(bytes, isBigEndian);
+
+    FpE y = GetYCoordinate(x, true);
+
+    if (!subgroupCheck) return {x, y, One};
+    if(SubgroupCheck(x) != 1) throw;
+    return {x, y, One};
+}
+
+
+static Banderwagon FromAffine(const AffinePoint& point)
 {
     return {point.X, point.Y, One};
 }
 
-const ExtendedPoint ExtendedPointIdentity = {AffinePointIdentity.X, AffinePointIdentity.Y, One};
+const Banderwagon BanderwagonIdentity = {AffinePointIdentity.X, AffinePointIdentity.Y, One};
 
-static bool Equals(const ExtendedPoint& p, const ExtendedPoint& q)
+static bool Equals(const Banderwagon& p, const Banderwagon& q)
 {
     if (p.IsZero()) return q.IsZero();
     if (q.IsZero()) return false;
@@ -52,13 +71,13 @@ static bool Equals(const ExtendedPoint& p, const ExtendedPoint& q)
     return Equals(p.X * q.Z, p.Z * q.X) && Equals(p.Y * q.Z, q.Y * p.Z);
 }
 
-static ExtendedPoint Neg(const ExtendedPoint& p)
+static Banderwagon Neg(const Banderwagon& p)
 {
     return {Negative(p.X), p.Y, p.Z};
 }
 
 // https://hyperelliptic.org/EFD/g1p/auto-twisted-projective.html
-static ExtendedPoint Add(const ExtendedPoint& p, const ExtendedPoint& q)
+static Banderwagon Add(const Banderwagon& p, const Banderwagon& q)
 {
     FpE x1 = p.X;
     FpE y1 = p.Y;
@@ -87,12 +106,12 @@ static ExtendedPoint Add(const ExtendedPoint& p, const ExtendedPoint& q)
     return {x3, y3, z3};
 }
 
-static ExtendedPoint Sub(ExtendedPoint p, ExtendedPoint q)
+static Banderwagon Sub(Banderwagon p, Banderwagon q)
 {
     return Add(p, Neg(q));
 }
 
-static ExtendedPoint Double(ExtendedPoint p)
+static Banderwagon Double(Banderwagon p)
 {
     FpE x1 = p.X;
     FpE y1 = p.Y;
@@ -113,8 +132,8 @@ static ExtendedPoint Double(ExtendedPoint p)
     return {x3, y3, z3};
 }
 
-static ExtendedPoint ScalarMultiplication(ExtendedPoint point, FrE scalarMont) {
-    ExtendedPoint result = ExtendedPointIdentity;
+static Banderwagon ScalarMultiplication(Banderwagon point, FrE scalarMont) {
+    Banderwagon result = BanderwagonIdentity;
 
     FrE scalar = FromMontgomery(scalarMont);
 

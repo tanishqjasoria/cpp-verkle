@@ -98,6 +98,13 @@ build CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o: CXX_COMPILER__cpp_verkle_unsc
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
   OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Curve
 
+build CMakeFiles/cpp_verkle.dir/Curve/Banderwagon.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Curve/Banderwagon.cpp || cmake_object_order_depends_target_cpp_verkle
+  DEFINES = -Dcpp_verkle_EXPORTS
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Curve/Banderwagon.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/cpp_verkle.dir
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Curve
+
 
 # =============================================================================
 # Link build statements for SHARED_LIBRARY target cpp_verkle
@@ -106,7 +113,7 @@ build CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o: CXX_COMPILER__cpp_verkle_unsc
 #############################################
 # Link the shared library libcpp_verkle.so
 
-build libcpp_verkle.so: CXX_SHARED_LIBRARY_LINKER__cpp_verkle_Debug CMakeFiles/cpp_verkle.dir/library.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FrE.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FpE.cpp.o CMakeFiles/cpp_verkle.dir/Curve/AffinePoint.cpp.o CMakeFiles/cpp_verkle.dir/Curve/ExtendedPoint.cpp.o CMakeFiles/cpp_verkle.dir/Fields/utils.cpp.o CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o
+build libcpp_verkle.so: CXX_SHARED_LIBRARY_LINKER__cpp_verkle_Debug CMakeFiles/cpp_verkle.dir/library.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FrE.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FpE.cpp.o CMakeFiles/cpp_verkle.dir/Curve/AffinePoint.cpp.o CMakeFiles/cpp_verkle.dir/Curve/ExtendedPoint.cpp.o CMakeFiles/cpp_verkle.dir/Fields/utils.cpp.o CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o CMakeFiles/cpp_verkle.dir/Curve/Banderwagon.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
   POST_BUILD = :

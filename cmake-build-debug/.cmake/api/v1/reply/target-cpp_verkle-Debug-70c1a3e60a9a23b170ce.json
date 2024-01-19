@@ -61,7 +61,8 @@
 				5,
 				7,
 				9,
-				10
+				10,
+				11
 			]
 		}
 	],
@@ -96,7 +97,8 @@
 				5,
 				7,
 				9,
-				10
+				10,
+				11
 			]
 		},
 		{
@@ -106,7 +108,8 @@
 				2,
 				4,
 				6,
-				8
+				8,
+				12
 			]
 		}
 	],
@@ -173,6 +176,17 @@
 			"compileGroupIndex" : 0,
 			"path" : "Curve/curve.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Curve/Banderwagon.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Curve/Banderwagon.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "SHARED_LIBRARY"

@@ -19,4 +19,6 @@ add_library(cpp_verkle SHARED library.cpp
         Fields/utils.cpp
         Fields/utils.cpp
         Curve/curve.cpp
+        Curve/Banderwagon.cpp
+        Curve/Banderwagon.h
 )
