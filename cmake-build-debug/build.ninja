@@ -56,26 +56,47 @@ build CMakeFiles/cpp_verkle.dir/library.cpp.o: CXX_COMPILER__cpp_verkle_unscanne
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
   OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir
 
-build CMakeFiles/cpp_verkle.dir/FrE/FrE.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/FrE/FrE.cpp || cmake_object_order_depends_target_cpp_verkle
+build CMakeFiles/cpp_verkle.dir/Fields/FrE.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Fields/FrE.cpp || cmake_object_order_depends_target_cpp_verkle
   DEFINES = -Dcpp_verkle_EXPORTS
-  DEP_FILE = CMakeFiles/cpp_verkle.dir/FrE/FrE.cpp.o.d
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Fields/FrE.cpp.o.d
   FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
-  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/FrE
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Fields
 
-build CMakeFiles/cpp_verkle.dir/FpE/FpE.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/FpE/FpE.cpp || cmake_object_order_depends_target_cpp_verkle
+build CMakeFiles/cpp_verkle.dir/Fields/FpE.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Fields/FpE.cpp || cmake_object_order_depends_target_cpp_verkle
   DEFINES = -Dcpp_verkle_EXPORTS
-  DEP_FILE = CMakeFiles/cpp_verkle.dir/FpE/FpE.cpp.o.d
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Fields/FpE.cpp.o.d
   FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
-  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/FpE
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Fields
 
-build CMakeFiles/cpp_verkle.dir/AffinePoint/AffinePoint.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/AffinePoint/AffinePoint.cpp || cmake_object_order_depends_target_cpp_verkle
+build CMakeFiles/cpp_verkle.dir/Curve/AffinePoint.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Curve/AffinePoint.cpp || cmake_object_order_depends_target_cpp_verkle
   DEFINES = -Dcpp_verkle_EXPORTS
-  DEP_FILE = CMakeFiles/cpp_verkle.dir/AffinePoint/AffinePoint.cpp.o.d
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Curve/AffinePoint.cpp.o.d
   FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
-  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/AffinePoint
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Curve
+
+build CMakeFiles/cpp_verkle.dir/Curve/ExtendedPoint.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Curve/ExtendedPoint.cpp || cmake_object_order_depends_target_cpp_verkle
+  DEFINES = -Dcpp_verkle_EXPORTS
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Curve/ExtendedPoint.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/cpp_verkle.dir
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Curve
+
+build CMakeFiles/cpp_verkle.dir/Fields/utils.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Fields/utils.cpp || cmake_object_order_depends_target_cpp_verkle
+  DEFINES = -Dcpp_verkle_EXPORTS
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Fields/utils.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/cpp_verkle.dir
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Fields
+
+build CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o: CXX_COMPILER__cpp_verkle_unscanned_Debug /home/eurus/cpp-verkle/Curve/curve.cpp || cmake_object_order_depends_target_cpp_verkle
+  DEFINES = -Dcpp_verkle_EXPORTS
+  DEP_FILE = CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fPIC -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/cpp_verkle.dir
+  OBJECT_FILE_DIR = CMakeFiles/cpp_verkle.dir/Curve
 
 
 # =============================================================================
@@ -85,7 +106,7 @@ build CMakeFiles/cpp_verkle.dir/AffinePoint/AffinePoint.cpp.o: CXX_COMPILER__cpp
 #############################################
 # Link the shared library libcpp_verkle.so
 
-build libcpp_verkle.so: CXX_SHARED_LIBRARY_LINKER__cpp_verkle_Debug CMakeFiles/cpp_verkle.dir/library.cpp.o CMakeFiles/cpp_verkle.dir/FrE/FrE.cpp.o CMakeFiles/cpp_verkle.dir/FpE/FpE.cpp.o CMakeFiles/cpp_verkle.dir/AffinePoint/AffinePoint.cpp.o
+build libcpp_verkle.so: CXX_SHARED_LIBRARY_LINKER__cpp_verkle_Debug CMakeFiles/cpp_verkle.dir/library.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FrE.cpp.o CMakeFiles/cpp_verkle.dir/Fields/FpE.cpp.o CMakeFiles/cpp_verkle.dir/Curve/AffinePoint.cpp.o CMakeFiles/cpp_verkle.dir/Curve/ExtendedPoint.cpp.o CMakeFiles/cpp_verkle.dir/Fields/utils.cpp.o CMakeFiles/cpp_verkle.dir/Curve/curve.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/cpp_verkle.dir
   POST_BUILD = :
