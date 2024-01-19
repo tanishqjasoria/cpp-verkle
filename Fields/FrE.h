@@ -8,12 +8,12 @@
 struct FrE;
 
 extern "C" {
-    bool AddOverflow(const FrE& a, const FrE& b, FrE* c);
-    bool SubtractUnderflow(const FrE& a, const FrE& b, FrE* c);
-    FrE AddMod(const FrE& a, const FrE& b);
-    FrE SubMod(const FrE& a, const FrE& b);
-    FrE MultiplyMod(const FrE& x, const FrE& y) ;
-    FrE Inverse(FrE x);
+    static bool AddOverflow(const FrE& a, const FrE& b, FrE* c);
+static bool SubtractUnderflow(const FrE& a, const FrE& b, FrE* c);
+static  FrE AddMod(const FrE& a, const FrE& b);
+static  FrE SubMod(const FrE& a, const FrE& b);
+static FrE MultiplyMod(const FrE& x, const FrE& y) ;
+static  FrE Inverse(FrE x);
 }
 
 

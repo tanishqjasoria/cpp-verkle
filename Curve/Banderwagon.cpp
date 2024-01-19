@@ -44,7 +44,7 @@ static int SubgroupCheck(const FpE& x)
     return Legendre(res);
 }
 
-static Banderwagon FromBytes(uint8_t* bytes, bool isBigEndian = true, bool subgroupCheck = true)
+static Banderwagon FromBytes(uint8_t* bytes, bool isBigEndian, bool subgroupCheck)
 {
     FpE x = New(bytes, isBigEndian);
 

@@ -508,6 +508,7 @@ static FpE Exp(const FpE& b, const FpE& e)
 
         bs = MultiplyMod(bs, bs);
     }
+    return result;
 }
 
 static int Legendre(const FpE& z)

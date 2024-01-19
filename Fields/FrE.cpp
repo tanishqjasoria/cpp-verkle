@@ -92,7 +92,6 @@ struct FrE {
 //    unsigned long u2;
 //    unsigned long u3;
 //};
-
 const ulong QInvNeg = 17410672245482742751UL;
 const ulong Q0 = 8429901452645165025UL;
 const ulong Q1 = 18415085837358793841UL;
@@ -139,6 +138,7 @@ const ulong BL3 = 1044189607433056169UL;
 const FrE _bLegendreExponentElement = {BL0, BL1, BL2, BL3};
 
 const ulong SqrtR = 5;
+
 
 static FrE SetElement(ulong u0 = 0, ulong u1 = 0, ulong u2 = 0, ulong u3 = 0)
 {
@@ -346,7 +346,7 @@ static FrE FromMontgomery(const FrE& x)
 }
 
 
-bool AddOverflow(const FrE& a, const FrE& b, FrE* c)
+static bool AddOverflow(const FrE& a, const FrE& b, FrE* c)
 {
     FrE p{};
     unsigned long carry = 0;
@@ -358,7 +358,7 @@ bool AddOverflow(const FrE& a, const FrE& b, FrE* c)
     return carry != 0;
 }
 
-bool SubtractUnderflow(const FrE& a, const FrE& b, FrE* c)
+static bool SubtractUnderflow(const FrE& a, const FrE& b, FrE* c)
 {
     FrE p{};
     unsigned long borrow = 0;
@@ -370,7 +370,7 @@ bool SubtractUnderflow(const FrE& a, const FrE& b, FrE* c)
     return borrow != 0;
 }
 
-FrE AddMod(const FrE& a, const FrE& b)
+static FrE AddMod(const FrE& a, const FrE& b)
 {
     FrE c{};
     AddOverflow(a,b,&c);
@@ -382,7 +382,7 @@ FrE AddMod(const FrE& a, const FrE& b)
     return c;
 }
 
-FrE SubMod(const FrE& a, const FrE& b)
+static FrE SubMod(const FrE& a, const FrE& b)
 {
     FrE c{};
     if (SubtractUnderflow(a, b, &c))
@@ -392,7 +392,7 @@ FrE SubMod(const FrE& a, const FrE& b)
     return c;
 }
 
-FrE MultiplyMod(const FrE& x, const FrE& y)
+static FrE MultiplyMod(const FrE& x, const FrE& y)
 {
     ulong t[4] = {0,0,0,0};
     ulong c[3] = {0,0,0};
@@ -512,6 +512,7 @@ static FrE Exp(const FrE& b, const FrE& e)
 
         bs = MultiplyMod(bs, bs);
     }
+    return result;
 }
 
 static int Legendre(const FrE& z)
