@@ -8,9 +8,9 @@
 struct Banderwagon {
     union {
         struct{
-            FpE X;
-            FpE Y;
-            FpE Z;
+            ElementFp::FpE X;
+            ElementFp::FpE Y;
+            ElementFp::FpE Z;
         };
         char bytes[96]; // Size of the union
     };
@@ -24,44 +24,44 @@ struct Banderwagon {
     {
         if (IsZero()) return AffinePointIdentity;
         if (Z.IsZero()) throw;
-        if (Equals(Z, One)) return {X, Y};
+        if (Equals(Z, ElementFp::One)) return {X, Y};
 
-        FpE zInv = Inverse(Z);
-        FpE xAff = X * zInv;
-        FpE yAff = Y * zInv;
+        ElementFp::FpE zInv = ElementFp::FpE::Inverse(Z);
+        ElementFp::FpE xAff = X * zInv;
+        ElementFp::FpE yAff = Y * zInv;
 
         return {xAff, yAff};
     }
 };
 
-static int SubgroupCheck(const FpE& x)
+static int SubgroupCheck(const ElementFp::FpE& x)
 {
-    FpE res = x * x;
+    ElementFp::FpE res = x * x;
     res = res * A;
     res = Negative(res);
-    res = res + One;
+    res = res + ElementFp::One;
 
     return Legendre(res);
 }
 
 static Banderwagon FromBytes(uint8_t* bytes, bool isBigEndian, bool subgroupCheck)
 {
-    FpE x = New(bytes, isBigEndian);
+    ElementFp::FpE x = ElementFp::New(bytes, isBigEndian);
 
-    FpE y = GetYCoordinate(x, true);
+    ElementFp::FpE y = GetYCoordinate(x, true);
 
-    if (!subgroupCheck) return {x, y, One};
+    if (!subgroupCheck) return {x, y, ElementFp::One};
     if(SubgroupCheck(x) != 1) throw;
-    return {x, y, One};
+    return {x, y, ElementFp::One};
 }
 
 
 static Banderwagon FromAffine(const AffinePoint& point)
 {
-    return {point.X, point.Y, One};
+    return {point.X, point.Y, ElementFp::One};
 }
 
-const Banderwagon BanderwagonIdentity = {AffinePointIdentity.X, AffinePointIdentity.Y, One};
+const Banderwagon BanderwagonIdentity = {AffinePointIdentity.X, AffinePointIdentity.Y, ElementFp::One};
 
 static bool Equals(const Banderwagon& p, const Banderwagon& q)
 {
@@ -79,29 +79,29 @@ static Banderwagon Neg(const Banderwagon& p)
 // https://hyperelliptic.org/EFD/g1p/auto-twisted-projective.html
 static Banderwagon Add(const Banderwagon& p, const Banderwagon& q)
 {
-    FpE x1 = p.X;
-    FpE y1 = p.Y;
-    FpE z1 = p.Z;
+    ElementFp::FpE x1 = p.X;
+    ElementFp::FpE y1 = p.Y;
+    ElementFp::FpE z1 = p.Z;
 
-    FpE x2 = q.X;
-    FpE y2 = q.Y;
-    FpE z2 = q.Z;
+    ElementFp::FpE x2 = q.X;
+    ElementFp::FpE y2 = q.Y;
+    ElementFp::FpE z2 = q.Z;
 
-    FpE a = z1 * z2;
-    FpE b = a * a;
+    ElementFp::FpE a = z1 * z2;
+    ElementFp::FpE b = a * a;
 
-    FpE c = x1 * x2;
+    ElementFp::FpE c = x1 * x2;
 
-    FpE d = y1 * y2;
+    ElementFp::FpE d = y1 * y2;
 
-    FpE e = D * c * d;
+    ElementFp::FpE e = D * c * d;
 
-    FpE f = b - e;
-    FpE g = b + e;
+    ElementFp::FpE f = b - e;
+    ElementFp::FpE g = b + e;
 
-    FpE x3 = a * f * (((x1 + y1) * (x2 + y2)) - c - d);
-    FpE y3 = a * g * (d - (A * c));
-    FpE z3 = f * g;
+    ElementFp::FpE x3 = a * f * (((x1 + y1) * (x2 + y2)) - c - d);
+    ElementFp::FpE y3 = a * g * (d - (A * c));
+    ElementFp::FpE z3 = f * g;
 
     return {x3, y3, z3};
 }
@@ -113,29 +113,29 @@ static Banderwagon Sub(Banderwagon p, Banderwagon q)
 
 static Banderwagon Double(Banderwagon p)
 {
-    FpE x1 = p.X;
-    FpE y1 = p.Y;
-    FpE z1 = p.Z;
+    ElementFp::FpE x1 = p.X;
+    ElementFp::FpE y1 = p.Y;
+    ElementFp::FpE z1 = p.Z;
 
-    FpE b = (x1 + y1) * (x1 + y1);
-    FpE c = x1 * x1;
-    FpE d = y1 * y1;
+    ElementFp::FpE b = (x1 + y1) * (x1 + y1);
+    ElementFp::FpE c = x1 * x1;
+    ElementFp::FpE d = y1 * y1;
 
-    FpE e = A * c;
-    FpE f = e + d;
-    FpE h = z1 * z1;
-    FpE j = f - (h + h);
+    ElementFp::FpE e = A * c;
+    ElementFp::FpE f = e + d;
+    ElementFp::FpE h = z1 * z1;
+    ElementFp::FpE j = f - (h + h);
 
-    FpE x3 = (b - c - d) * j;
-    FpE y3 = f * (e - d);
-    FpE z3 = f * j;
+    ElementFp::FpE x3 = (b - c - d) * j;
+    ElementFp::FpE y3 = f * (e - d);
+    ElementFp::FpE z3 = f * j;
     return {x3, y3, z3};
 }
 
-static Banderwagon ScalarMultiplication(Banderwagon point, FrE scalarMont) {
+static Banderwagon ScalarMultiplication(Banderwagon point, ElementFr::FrE scalarMont) {
     Banderwagon result = BanderwagonIdentity;
 
-    FrE scalar = FromMontgomery(scalarMont);
+    ElementFr::FrE scalar = ElementFr::FromMontgomery(scalarMont);
 
     int len = scalar.BitLen();
     for (int i = len; i >= 0; i--) {
