@@ -1,12 +1,12 @@
 //
 // Created by eurus on 1/19/24.
 //
-
+#pragma once
 #include "../Fields/FpE.cpp"
 #include "../Fields/FrE.cpp"
 
-const FpE A = Negative(SetElement(5));
-const FpE D = {12167860994669987632UL, 4043113551995129031UL, 6052647550941614584UL, 3904213385886034240UL};
+const ElementFp::FpE A = Negative(ElementFp::SetElement(5));
+const ElementFp::FpE D = {12167860994669987632UL, 4043113551995129031UL, 6052647550941614584UL, 3904213385886034240UL};
 
 const uint8_t NumX[32] = {
         24, 174, 82, 162, 102, 24, 231, 225,
@@ -22,5 +22,5 @@ const uint8_t NumY[32] = {
         15,62, 18, 218, 158, 102, 108, 42
 };
 
-const FpE YTe = FromBytesReduced(NumX);
-const FpE XTe = FromBytesReduced(NumY);
+const ElementFp::FpE YTe = ElementFp::FromBytesReduced(NumX);
+const ElementFp::FpE XTe = ElementFp::FromBytesReduced(NumY);

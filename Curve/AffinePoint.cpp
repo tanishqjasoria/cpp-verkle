@@ -2,23 +2,19 @@
 // Created by eurus on 1/19/24.
 //
 
-#include "AffinePoint.h"
 #include "curve.cpp"
-#include "../Fields/FpE.cpp"
-#include "../Fields/FrE.cpp"
-
 
 struct AffinePoint {
     union {
         struct{
-            FpE X;
-            FpE Y;
+            ElementFp::FpE X;
+            ElementFp::FpE Y;
         };
         char bytes[64]; // Size of the union
     };
 };
 
-const AffinePoint AffinePointIdentity = {Zero, One};
+const AffinePoint AffinePointIdentity = {ElementFp::Zero, ElementFp::One};
 
 static AffinePoint Neg(const AffinePoint& p)
 {
@@ -27,24 +23,24 @@ static AffinePoint Neg(const AffinePoint& p)
 
 static AffinePoint Add(const AffinePoint& p, const AffinePoint& q)
 {
-    FpE x1Y2 = p.X * q.Y;
-    FpE y1X2 = p.Y * q.X;
-    FpE x1X2A = p.X * q.X * A;
-    FpE y1Y2 = p.Y * q.Y;
+    ElementFp::FpE x1Y2 = p.X * q.Y;
+    ElementFp::FpE y1X2 = p.Y * q.X;
+    ElementFp::FpE x1X2A = p.X * q.X * A;
+    ElementFp::FpE y1Y2 = p.Y * q.Y;
 
-    FpE x1X2Y1Y2D = x1Y2 * y1X2 * D;
+    ElementFp::FpE x1X2Y1Y2D = x1Y2 * y1X2 * D;
 
-    FpE xNum = x1Y2 + y1X2;
+    ElementFp::FpE xNum = x1Y2 + y1X2;
 
-    FpE xDen = One + x1X2Y1Y2D;
+    ElementFp::FpE xDen = ElementFp::One + x1X2Y1Y2D;
 
-    FpE yNum = y1Y2 - x1X2A;
+    ElementFp::FpE yNum = y1Y2 - x1X2A;
 
-    FpE yDen = One - x1X2Y1Y2D;
+    ElementFp::FpE yDen = ElementFp::One - x1X2Y1Y2D;
 
-    FpE x = xNum / xDen;
+    ElementFp::FpE x = xNum / xDen;
 
-    FpE y = yNum / yDen;
+    ElementFp::FpE y = yNum / yDen;
 
     return {x,y};
 }
@@ -57,48 +53,48 @@ static AffinePoint Sub(const AffinePoint& p, const AffinePoint& q)
 
 static AffinePoint Double(const AffinePoint& p)
 {
-    FpE xSq = p.X * p.X;
-    FpE ySq = p.Y * p.Y;
+    ElementFp::FpE xSq = p.X * p.X;
+    ElementFp::FpE ySq = p.Y * p.Y;
 
-    FpE xY = p.X * p.Y;
-    FpE xSqA = xSq * A;
+    ElementFp::FpE xY = p.X * p.Y;
+    ElementFp::FpE xSqA = xSq * A;
 
-    FpE xSqYSqD = xSq * ySq * D;
+    ElementFp::FpE xSqYSqD = xSq * ySq * D;
 
-    FpE xNum = xY + xY;
+    ElementFp::FpE xNum = xY + xY;
 
-    FpE xDen = One + xSqYSqD;
+    ElementFp::FpE xDen = ElementFp::One + xSqYSqD;
 
-    FpE yNum = ySq - xSqA;
+    ElementFp::FpE yNum = ySq - xSqA;
 
-    FpE yDen = One - xSqYSqD;
+    ElementFp::FpE yDen = ElementFp::One - xSqYSqD;
 
-    FpE x = xNum / xDen;
-    FpE y = yNum / yDen;
+    ElementFp::FpE x = xNum / xDen;
+    ElementFp::FpE y = yNum / yDen;
 
     return {x, y};
 }
 
 static bool IsOnCurve(const AffinePoint& p)
 {
-    FpE xSq = p.X * p.X;
-    FpE ySq = p.Y * p.Y;
+    ElementFp::FpE xSq = p.X * p.X;
+    ElementFp::FpE ySq = p.Y * p.Y;
 
-    FpE dxySq = xSq * ySq * D;
-    FpE aXSq = A * xSq;
+    ElementFp::FpE dxySq = xSq * ySq * D;
+    ElementFp::FpE aXSq = A * xSq;
 
-    FpE one = One;
+    ElementFp::FpE one = ElementFp::One;
 
-    FpE rhs = one + dxySq;
-    FpE lhs = aXSq + ySq;
+    ElementFp::FpE rhs = one + dxySq;
+    ElementFp::FpE lhs = aXSq + ySq;
 
     return Equals(lhs, rhs);
 }
 
-static AffinePoint ScalarMultiplication(const AffinePoint& point, const FrE& scalarMont)
+static AffinePoint ScalarMultiplication(const AffinePoint& point, const ElementFr::FrE& scalarMont)
 {
     AffinePoint result = AffinePointIdentity;
-    FrE scalar = FromMontgomery(scalarMont);
+    ElementFr::FrE scalar = ElementFr::FromMontgomery(scalarMont);
     AffinePoint pointToUse = point;
 
     for (int i = 0; i < scalar.BitLen(); ++i) {
@@ -108,19 +104,19 @@ static AffinePoint ScalarMultiplication(const AffinePoint& point, const FrE& sca
     return result;
 }
 
-static FpE GetYCoordinate(const FpE& x, bool returnPositiveY)
+static ElementFp::FpE GetYCoordinate(const ElementFp::FpE& x, bool returnPositiveY)
 {
-    FpE one = One;
-    FpE num = x * x;
-    FpE den = (num * D) - one;
+    ElementFp::FpE one = ElementFp::One;
+    ElementFp::FpE num = x * x;
+    ElementFp::FpE den = (num * D) - one;
     num = (num * A) - one;
 
-    FpE y = num / den;
+    ElementFp::FpE y = num / den;
 
-    FpE z = {};
+    ElementFp::FpE z = {};
     if (!Sqrt(y, &z)) throw;
 
-    bool isLargest = LexicographicallyLargest(z);
+    bool isLargest = ElementFp::LexicographicallyLargest(z);
 
     return isLargest == returnPositiveY ? z : Negative(z);
 }

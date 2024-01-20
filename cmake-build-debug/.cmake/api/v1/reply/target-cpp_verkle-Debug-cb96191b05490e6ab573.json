@@ -109,7 +109,8 @@
 				4,
 				6,
 				8,
-				12
+				12,
+				13
 			]
 		}
 	],
@@ -186,6 +187,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "Curve/Banderwagon.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Fields/utils.h",
 			"sourceGroupIndex" : 1
 		}
 	],
